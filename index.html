@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Leonida Drop — unofficial GTA VI fan companion</title>
+  <meta name="description" content="Unofficial Grand Theft Auto VI fan hub: official facts, Vice City nights, and original crypto collectibles minted to your MetaMask or Phantom wallet. Not affiliated with Rockstar Games.">
+  <meta name="robots" content="index,follow">
+  <link rel="icon" href="images/mark.jpg">
+  <meta property="og:title" content="Leonida Drop — unofficial GTA VI companion">
+  <meta property="og:description" content="The wait until November 19, 2026. Original skins, rides, and drops. Minted to your wallet.">
+  <meta property="og:image" content="images/og.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="banner">Unofficial fan project · Not Rockstar Games · Not Take-Two · Original collectibles only</div>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><img src="images/mark.jpg" alt=""> Leonida Drop</a>
+      <button class="menu-btn" id="menuBtn" type="button">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a class="active" href="index.html">Home</a>
+        <a href="story.html">Story</a>
+        <a href="shop.html">Shop</a>
+        <a href="drops.html">Drops</a>
+        <a href="locker.html">Locker</a>
+        <a href="about.html">About</a>
+        <button class="btn btn-ghost" type="button" data-connect>Connect wallet</button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img class="bg" src="images/hero.jpg" alt="Neon causeway at dusk with a magenta convertible">
+    <div class="wrap hero-copy">
+      <p class="eyebrow">Unofficial companion · Grand Theft Auto VI</p>
+      <h1>
+        <span><b>The deck is</b></span>
+        <span><b>stacked.</b></span>
+        <span><b>The night isn’t.</b></span>
+      </h1>
+      <p class="lede">Vice City, USA. Leonida around it. Official release November 19, 2026 on PS5 and Xbox Series. Until then: original skins, rides, and crates — paid in crypto, minted to the wallet you connect.</p>
+      <div class="hero-actions">
+        <a class="btn btn-pink" href="shop.html">Enter the shop</a>
+        <a class="btn btn-ghost" href="story.html">Read what’s official</a>
+      </div>
+      <div id="countdown"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="kicker reveal">Only in Leonida</p>
+      <h2 class="reveal">The sunniest place. The darkest side.</h2>
+      <p class="lede reveal">Rockstar’s map is the state of Leonida — a Florida built from Vice City, the Keys, swamps, ports, and a park with a mountain’s name. These stills are original. The place-names are theirs.</p>
+      <div class="grid-3">
+        <a class="tile reveal" href="story.html"><img src="images/loc-vice.jpg" alt="Neon downtown"><span>Vice City</span></a>
+        <a class="tile reveal" href="story.html"><img src="images/loc-keys.jpg" alt="Turquoise keys"><span>Leonida Keys</span></a>
+        <a class="tile reveal" href="story.html"><img src="images/loc-swamp.jpg" alt="Swamp at dusk"><span>Grassrivers</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap split">
+      <img class="reveal" src="images/story-drive.jpg" alt="Couple driving a convertible toward the skyline">
+      <div class="reveal">
+        <p class="kicker">The score</p>
+        <h2>Jason. Lucia. One easy job that wasn’t.</h2>
+        <p class="lede">Jason Duval wants an easy life and keeps not getting one. Lucia Caminos got out of Leonida Penitentiary and is done playing fair. Official story: a conspiracy across the state, and two people who only have each other if they want out alive.</p>
+        <a class="btn btn-gold" href="story.html">Full briefing</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="kicker">The drop</p>
+      <h2>Cheap streetwear. Stupid-expensive nights.</h2>
+      <p class="lede">$4 tanks to $310 helicopters. Buy a piece and it mints into your locker, bound to MetaMask (Polygon) or Phantom (Solana). Or open a crate and let the night pick.</p>
+      <p><a class="btn btn-pink" href="shop.html">Shop items</a> <a class="btn btn-ghost" href="drops.html">Open a crate</a></p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="wrap foot-row">
+      <div><strong>Leonida Drop</strong><p>Unofficial fan companion. Not affiliated with Rockstar Games or Take-Two Interactive. Grand Theft Auto is their trademark. Our items are original.</p></div>
+      <div><a href="https://www.rockstargames.com/VI" rel="noopener" target="_blank">Official GTA VI</a> · <a href="about.html">Disclaimer</a></div>
+    </div>
+  </footer>
+  <div class="toast" id="toast"></div>
+  <div class="modal" id="payModal" hidden>
+    <div class="sheet">
+      <h3>Choose a wallet</h3>
+      <p class="lede">MetaMask pays on Polygon. Phantom pays in SOL. The NFT lands in your locker either way.</p>
+      <button class="btn btn-pink" type="button" id="payEvm">MetaMask · Polygon</button>
+      <button class="btn btn-gold" type="button" id="paySol">Phantom · Solana</button>
+      <button class="btn btn-ghost" type="button" id="payCancel">Cancel</button>
+    </div>
+  </div>
+  <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drops — Leonida Drop</title>
+  <meta name="description" content="Open Street, Keys, Vice, or Legend crates. Published odds. Random original collectible minted to your wallet.">
+  <link rel="icon" href="images/mark.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="banner">Random crates · Odds are on the card · Entertainment collectibles, not a casino</div>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><img src="images/mark.jpg" alt=""> Leonida Drop</a>
+      <button class="menu-btn" id="menuBtn" type="button">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="story.html">Story</a>
+        <a href="shop.html">Shop</a>
+        <a class="active" href="drops.html">Drops</a>
+        <a href="locker.html">Locker</a>
+        <a href="about.html">About</a>
+        <button class="btn btn-ghost" type="button" data-connect>Connect wallet</button>
+      </nav>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap">
+      <p class="kicker">Crates</p>
+      <h2>Pay once. The night rolls.</h2>
+      <p class="lede">Each drop is a real crypto payment, then a weighted roll from the published pool. The item that lands is minted to your locker with the transaction as proof. Want a guaranteed car? Buy it in the shop instead.</p>
+      <div class="cards" id="dropGrid"></div>
+      <div id="crateStage" hidden></div>
+    </div>
+  </section>
+  <footer class="footer"><div class="wrap">18+ intended. Not official Rockstar loot. <a href="shop.html">Guaranteed shop →</a></div></footer>
+  <div class="toast" id="toast"></div>
+  <div class="modal" id="payModal" hidden>
+    <div class="sheet">
+      <h3>Open with</h3>
+      <button class="btn btn-pink" type="button" id="payEvm">MetaMask · Polygon</button>
+      <button class="btn btn-gold" type="button" id="paySol">Phantom · SOL</button>
+      <button class="btn btn-ghost" type="button" id="payCancel">Cancel</button>
+    </div>
+  </div>
+  <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

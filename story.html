@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Story — Leonida Drop</title>
+  <meta name="description" content="What Rockstar has actually announced for Grand Theft Auto VI: Leonida, Vice City, Jason Duval, Lucia Caminos, November 19 2026.">
+  <link rel="icon" href="images/mark.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="banner">Facts below are from Rockstar / Take-Two public materials · This site is unofficial</div>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><img src="images/mark.jpg" alt=""> Leonida Drop</a>
+      <button class="menu-btn" id="menuBtn" type="button">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a class="active" href="story.html">Story</a>
+        <a href="shop.html">Shop</a>
+        <a href="drops.html">Drops</a>
+        <a href="locker.html">Locker</a>
+        <a href="about.html">About</a>
+        <button class="btn btn-ghost" type="button" data-connect>Connect wallet</button>
+      </nav>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap">
+      <p class="kicker">Official, as of August 2026</p>
+      <h2>Vice City, USA. The state of Leonida.</h2>
+      <p class="lede">Everything here is what Rockstar has put on <a href="https://www.rockstargames.com/VI" rel="noopener" target="_blank">rockstargames.com/VI</a>, trailers, and press. No leaks dressed up as facts.</p>
+      <div class="facts" style="margin:28px 0 48px">
+        <div class="fact"><b>Release</b> November 19, 2026 · PlayStation 5 and Xbox Series X|S. Trailer 1 promised 2025, then May 26 2026, then this date. PC has not been announced.</div>
+        <div class="fact"><b>Story</b> “Jason and Lucia have always known the deck is stacked against them.” An easy score goes wrong. They are pulled into a criminal conspiracy across Leonida and have to rely on each other to get out alive.</div>
+        <div class="fact"><b>Lucia Caminos</b> First female protagonist in a numbered GTA. Her father taught her to fight. Fighting for her family put her in Leonida Penitentiary. Sheer luck got her out. Smart moves only, from here.</div>
+        <div class="fact"><b>Jason Duval</b> Grew up around grifters. Army, then the Keys, working for local drug runners. Wants an easy life. Does not get one. Lives on property tied to Brian Heder.</div>
+        <div class="fact"><b>The map</b> Vice City (Miami) plus Leonida Keys, Grassrivers, Port Gellhorn, Ambrosia, Mount Kalaga National Park. Vice City is described as twice Los Santos. Rockstar filmed and researched on the ground in Florida.</div>
+        <div class="fact"><b>What else is confirmed</b> Dual protagonists you can play as a couple or more like partners. Trailers 1 and 2. Netflix “An Extended Look” (in-game PS5 footage, ~27 minutes, Aug 27 2026). Pre-orders live. Ultimate Edition and a Vintage Vice City Pack exist as official pre-order items — not sold here.</div>
+      </div>
+      <div class="split">
+        <img src="images/loc-port.jpg" alt="Industrial port at night">
+        <div>
+          <p class="kicker">People around them</p>
+          <p class="quote">“A life with Jason could be her way out.”</p>
+          <p>Rockstar has named supporting pieces: Cal Hampton (Jason’s conspiracy-minded friend), Boobie Ike (Vice City operator), Dre’Quan Priest and Real Dimez, bank robber Raul Bautista, Brian and Lori Heder, Stephanie on Lucia’s paperwork. The rest of the cast lives in the trailers: spring break, swamp mystics, strip-club economy, a state that satirizes Florida without being Florida.</p>
+        </div>
+      </div>
+      <div class="grid-3" style="margin-top:36px">
+        <div class="tile"><img src="images/loc-vice.jpg" alt="Vice City neon"><span>Vice City</span></div>
+        <div class="tile"><img src="images/loc-keys.jpg" alt="Keys"><span>Leonida Keys</span></div>
+        <div class="tile"><img src="images/loc-swamp.jpg" alt="Grassrivers"><span>Grassrivers</span></div>
+      </div>
+      <p class="lede" style="margin-top:36px">This shop does not sell Rockstar’s Ultimate Edition or their Vintage Vice City Pack. Those are on PlayStation and Xbox stores. What we mint is original fan art collectibles — jackets, rides, docks — paid on-chain, sitting in your locker.</p>
+      <a class="btn btn-pink" href="shop.html">Go to the shop</a>
+    </div>
+  </section>
+  <footer class="footer"><div class="wrap"><a href="index.html">← Home</a> · <a href="https://www.rockstargames.com/VI" rel="noopener" target="_blank">Official site</a></div></footer>
+  <div class="toast" id="toast"></div>
+  <div class="modal" id="payModal" hidden>
+    <div class="sheet">
+      <h3>Choose a wallet</h3>
+      <button class="btn btn-pink" type="button" id="payEvm">MetaMask · Polygon</button>
+      <button class="btn btn-gold" type="button" id="paySol">Phantom · Solana</button>
+      <button class="btn btn-ghost" type="button" id="payCancel">Cancel</button>
+    </div>
+  </div>
+  <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Leonida Drop</title>
+  <meta name="description" content="Unofficial GTA VI fan companion. How payments and locker mints work. Not affiliated with Rockstar.">
+  <link rel="icon" href="images/mark.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="banner">Read this once · Then spend whatever you can actually afford to lose</div>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><img src="images/mark.jpg" alt=""> Leonida Drop</a>
+      <button class="menu-btn" id="menuBtn" type="button">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="story.html">Story</a>
+        <a href="shop.html">Shop</a>
+        <a href="drops.html">Drops</a>
+        <a href="locker.html">Locker</a>
+        <a class="active" href="about.html">About</a>
+        <button class="btn btn-ghost" type="button" data-connect>Connect wallet</button>
+      </nav>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap" style="max-width:72ch">
+      <p class="kicker">About</p>
+      <h2>A fan night market for the wait.</h2>
+      <p>Leonida Drop is an unofficial companion for people counting down to <strong>Grand Theft Auto VI</strong> (November 19, 2026, PS5 and Xbox Series). Story pages use only public Rockstar / Take-Two facts. Shop items are original art in a Vice City night palette — not Rockstar assets, not in-game items, not the official Ultimate Edition.</p>
+      <h3>How a buy works</h3>
+      <ol>
+        <li>Connect <strong>MetaMask</strong> (Polygon) or <strong>Phantom</strong> (Solana).</li>
+        <li>You send the USD price as USDT/POL on Polygon, or SOL on Solana, to the published treasury.</li>
+        <li>That transaction is the on-chain proof.</li>
+        <li>We mint a locker NFT record to the paying address: unique token id, item, rarity, tx hash.</li>
+      </ol>
+      <p>Polygon is used so a $4 tank does not die in gas. If you have USDT on Polygon, we spend that first. If not, native POL. Phantom sends SOL.</p>
+      <h3>Treasury (public)</h3>
+      <p>EVM / Polygon:</p>
+      <p class="mono" id="evmOut"></p>
+      <p>Solana:</p>
+      <p class="mono" id="solOut"></p>
+      <h3>What this is not</h3>
+      <p>Not Rockstar. Not Take-Two. Not a registered securities offering. Not tax advice. Crates are random digital collectibles with published weights — not a promise of profit. Official game pre-orders belong on PlayStation and Xbox stores.</p>
+      <p><a class="btn btn-pink" href="shop.html">Shop</a> <a class="btn btn-ghost" href="https://www.rockstargames.com/VI" rel="noopener" target="_blank">Official GTA VI</a></p>
+    </div>
+  </section>
+  <footer class="footer"><div class="wrap">© 2026 Leonida Drop · Unofficial</div></footer>
+  <div class="toast" id="toast"></div>
+  <div class="modal" id="payModal" hidden>
+    <div class="sheet">
+      <h3>Connect</h3>
+      <button class="btn btn-pink" type="button" id="payEvm">MetaMask</button>
+      <button class="btn btn-gold" type="button" id="paySol">Phantom</button>
+      <button class="btn btn-ghost" type="button" id="payCancel">Cancel</button>
+    </div>
+  </div>
+  <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      if (window.LEONIDA) {
+        document.getElementById("evmOut").textContent = window.LEONIDA.evm;
+        document.getElementById("solOut").textContent = window.LEONIDA.solana;
+      }
+    });
+  </script>
+</body>
+</html>

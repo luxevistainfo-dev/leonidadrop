@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop — Leonida Drop</title>
+  <meta name="description" content="Buy original Vice City-inspired collectibles with MetaMask or Phantom. Minted to your locker.">
+  <link rel="icon" href="images/mark.jpg">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="banner">Original items · Not official GTA merch · Payment is a real on-chain transfer</div>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="index.html"><img src="images/mark.jpg" alt=""> Leonida Drop</a>
+      <button class="menu-btn" id="menuBtn" type="button">☰</button>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="story.html">Story</a>
+        <a class="active" href="shop.html">Shop</a>
+        <a href="drops.html">Drops</a>
+        <a href="locker.html">Locker</a>
+        <a href="about.html">About</a>
+        <button class="btn btn-ghost" type="button" data-connect>Connect wallet</button>
+      </nav>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap">
+      <p class="kicker">The shop</p>
+      <h2>Pick it. Pay it. It’s in the locker.</h2>
+      <p class="lede">Connect MetaMask (USDT or POL on Polygon) or Phantom (SOL). The transfer is the receipt. We mint a collectible NFT record to that wallet address — name, rarity, tx hash — so the item is theirs.</p>
+      <div class="toolbar">
+        <input id="q" type="search" placeholder="Search the strip…">
+        <select id="cat">
+          <option value="all">All</option>
+          <option value="wear">Wear</option>
+          <option value="ride">Rides</option>
+          <option value="place">Places</option>
+          <option value="cheap">Under $20</option>
+          <option value="high">$80 and up</option>
+        </select>
+        <span class="wallet-chip" id="walletChip" hidden></span>
+      </div>
+      <div class="cards" id="shopGrid"></div>
+    </div>
+  </section>
+  <footer class="footer"><div class="wrap">Odds-free shop. Crates live on <a href="drops.html">Drops</a>.</div></footer>
+  <div class="toast" id="toast"></div>
+  <div class="modal" id="payModal" hidden>
+    <div class="sheet">
+      <h3>Pay with</h3>
+      <p class="lede">Same item. Different chain. NFT still binds to the address you pay from.</p>
+      <button class="btn btn-pink" type="button" id="payEvm">MetaMask · Polygon USDT/POL</button>
+      <button class="btn btn-gold" type="button" id="paySol">Phantom · SOL</button>
+      <button class="btn btn-ghost" type="button" id="payCancel">Cancel</button>
+    </div>
+  </div>
+  <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/catalog.js"></script>
+  <script src="js/wallet.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
