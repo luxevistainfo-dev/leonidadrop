@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07040c">
   <title>Leonida Drop — unofficial GTA VI fan companion</title>
   <meta name="description" content="Unofficial Grand Theft Auto VI fan hub: official facts, Vice City nights, and original crypto collectibles minted to your MetaMask or Phantom wallet. Not affiliated with Rockstar Games.">
   <meta name="robots" content="index,follow">
@@ -80,7 +81,12 @@
     <div class="wrap">
       <p class="kicker">The drop</p>
       <h2>Cheap streetwear. Stupid-expensive nights.</h2>
-      <p class="lede">$4 tanks to $310 helicopters. Buy a piece and it mints into your locker, bound to MetaMask (Polygon) or Phantom (Solana). Or open a crate and let the night pick.</p>
+      <p class="lede">$3 spray cans to $310 helicopters. Twenty-six original pieces. Log in with MetaMask, Coinbase, Trust, Rainbow, OKX, Phantom, or Solflare — then pay. The item mints to that wallet.</p>
+      <div class="grid-3" style="margin:22px 0 28px">
+        <a class="tile" href="shop.html"><img src="images/item-hoodie.jpg" alt="Magenta hoodie"><span>Wear from $3</span></a>
+        <a class="tile" href="shop.html"><img src="images/item-car.jpg" alt="Pink convertible"><span>Rides from $34</span></a>
+        <a class="tile" href="drops.html"><img src="images/crate-legend.jpg" alt="Legend crate"><span>Random drops</span></a>
+      </div>
       <p><a class="btn btn-pink" href="shop.html">Shop items</a> <a class="btn btn-ghost" href="drops.html">Open a crate</a></p>
     </div>
   </section>
@@ -92,16 +98,7 @@
     </div>
   </footer>
   <div class="toast" id="toast"></div>
-  <div class="modal" id="payModal" hidden>
-    <div class="sheet">
-      <h3>Choose a wallet</h3>
-      <p class="lede">MetaMask pays on Polygon. Phantom pays in SOL. The NFT lands in your locker either way.</p>
-      <button class="btn btn-pink" type="button" id="payEvm">MetaMask · Polygon</button>
-      <button class="btn btn-gold" type="button" id="paySol">Phantom · Solana</button>
-      <button class="btn btn-ghost" type="button" id="payCancel">Cancel</button>
-    </div>
-  </div>
-  <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
   <script src="js/config.js"></script>
   <script src="js/catalog.js"></script>
   <script src="js/wallet.js"></script>

@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07040c">
   <title>About — Leonida Drop</title>
   <meta name="description" content="Unofficial GTA VI fan companion. How payments and locker mints work. Not affiliated with Rockstar.">
   <link rel="icon" href="images/mark.jpg">
@@ -33,7 +34,7 @@
       <p>Leonida Drop is an unofficial companion for people counting down to <strong>Grand Theft Auto VI</strong> (November 19, 2026, PS5 and Xbox Series). Story pages use only public Rockstar / Take-Two facts. Shop items are original art in a Vice City night palette — not Rockstar assets, not in-game items, not the official Ultimate Edition.</p>
       <h3>How a buy works</h3>
       <ol>
-        <li>Connect <strong>MetaMask</strong> (Polygon) or <strong>Phantom</strong> (Solana).</li>
+        <li>Connect <strong>MetaMask, Coinbase Wallet, Trust, Rainbow, OKX</strong> (Polygon) or <strong>Phantom / Solflare</strong> (Solana). On phone, the button opens the app.</li>
         <li>You send the USD price as USDT/POL on Polygon, or SOL on Solana, to the published treasury.</li>
         <li>That transaction is the on-chain proof.</li>
         <li>We mint a locker NFT record to the paying address: unique token id, item, rarity, tx hash.</li>
@@ -51,15 +52,7 @@
   </section>
   <footer class="footer"><div class="wrap">© 2026 Leonida Drop · Unofficial</div></footer>
   <div class="toast" id="toast"></div>
-  <div class="modal" id="payModal" hidden>
-    <div class="sheet">
-      <h3>Connect</h3>
-      <button class="btn btn-pink" type="button" id="payEvm">MetaMask</button>
-      <button class="btn btn-gold" type="button" id="paySol">Phantom</button>
-      <button class="btn btn-ghost" type="button" id="payCancel">Cancel</button>
-    </div>
-  </div>
-  <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
   <script src="js/config.js"></script>
   <script src="js/catalog.js"></script>
   <script src="js/wallet.js"></script>

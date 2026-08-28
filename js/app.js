@@ -1,6 +1,9 @@
 (function () {
   function $(s, r) { return (r || document).querySelector(s); }
   function $$ (s, r) { return [...(r || document).querySelectorAll(s)]; }
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
 
   function tickCountdown() {
     const el = $("#countdown");
@@ -17,43 +20,43 @@
     }).join("");
   }
 
-  function rarityClass(r) { return "r-" + r; }
-
   function cardHTML(item) {
-    return `<article class="card ${rarityClass(item.rarity)}" data-id="${item.id}">
-      <div class="card-media"><img src="${item.img}" alt="${item.name}"></div>
+    return `<article class="card r-${esc(item.rarity)}" data-id="${esc(item.id)}">
+      <div class="card-media"><img src="${esc(item.img)}" alt="${esc(item.name)}"></div>
       <div class="card-body">
-        <p class="rarity">${item.rarity}</p>
-        <h3>${item.name}</h3>
-        <p>${item.blurb}</p>
+        <p class="rarity">${esc(item.rarity)}</p>
+        <h3>${esc(item.name)}</h3>
+        <p>${esc(item.blurb)}</p>
         <div class="card-row">
           <strong>$${item.usd}</strong>
-          <button class="btn btn-pink" type="button" data-buy="${item.id}">Buy & mint</button>
+          <button class="btn btn-pink" type="button" data-buy="${esc(item.id)}">Buy & mint</button>
         </div>
       </div>
     </article>`;
   }
 
-  async function handleBuy(id) {
-    const item = window.itemById(id);
+  async function runPay(btn, label, fn) {
     const W = window.LeonidaWallet;
-    if (!W.state.address) {
-      W.toast("Connect a wallet first");
-      document.querySelector("[data-connect]")?.click();
-      return;
+    const prev = btn ? btn.textContent : "";
+    if (btn) { btn.disabled = true; btn.textContent = "Confirm in wallet…"; }
+    try {
+      const res = await fn();
+      if (btn) btn.textContent = "Minted";
+      return res;
+    } catch (err) {
+      W.toast(W.friendlyErr(err));
+      if (btn) { btn.disabled = false; btn.textContent = prev || label; }
+      return null;
     }
-    W.openChooser(async (kind) => {
-      const btn = document.querySelector(`[data-buy="${id}"]`);
-      if (btn) { btn.disabled = true; btn.textContent = "Confirm in wallet…"; }
-      try {
-        const res = await W.buyItem(item, kind);
-        if (btn) btn.textContent = "Minted";
-        window.location.href = "locker.html?got=" + encodeURIComponent(res.token.tokenId);
-      } catch (err) {
-        W.toast((err && err.message) || "Cancelled");
-        if (btn) { btn.disabled = false; btn.textContent = "Buy & mint"; }
-      }
-    });
+  }
+
+  async function handleBuy(id, btn) {
+    const item = window.itemById(id);
+    if (!item) return;
+    const res = await runPay(btn, "Buy & mint", () => window.LeonidaWallet.buyItem(item));
+    if (res && res.token) {
+      window.location.href = "locker.html?got=" + encodeURIComponent(res.token.tokenId);
+    }
   }
 
   function filterShop() {
@@ -67,6 +70,8 @@
       return okCat && okQ;
     });
     grid.innerHTML = rows.map(cardHTML).join("") || "<p class='empty'>Nothing in this lane.</p>";
+    const n = $("#shopCount");
+    if (n) n.textContent = rows.length + " items";
   }
 
   function renderShop() {
@@ -75,7 +80,7 @@
     filterShop();
     grid.addEventListener("click", (e) => {
       const b = e.target.closest("[data-buy]");
-      if (b) handleBuy(b.dataset.buy);
+      if (b) handleBuy(b.dataset.buy, b);
     });
     $("#q")?.addEventListener("input", filterShop);
     $("#cat")?.addEventListener("change", filterShop);
@@ -87,15 +92,15 @@
     grid.innerHTML = window.CRATES.map((c) => {
       const names = c.pool.map((p) => window.itemById(p[0])?.name).filter(Boolean).join(" · ");
       return `<article class="card crate-card">
-        <div class="card-media"><img src="${c.img}" alt="${c.name}"></div>
+        <div class="card-media"><img src="${esc(c.img)}" alt="${esc(c.name)}"></div>
         <div class="card-body">
           <p class="rarity">drop</p>
-          <h3>${c.name}</h3>
-          <p>${c.blurb}</p>
-          <p class="odds">Can roll: ${names}</p>
+          <h3>${esc(c.name)}</h3>
+          <p>${esc(c.blurb)}</p>
+          <p class="odds">Can roll: ${esc(names)}</p>
           <div class="card-row">
             <strong>$${c.usd}</strong>
-            <button class="btn btn-gold" type="button" data-crate="${c.id}">Open drop</button>
+            <button class="btn btn-gold" type="button" data-crate="${esc(c.id)}">Open drop</button>
           </div>
         </div>
       </article>`;
@@ -105,33 +110,25 @@
       if (!b) return;
       const crate = window.CRATES.find((x) => x.id === b.dataset.crate);
       const W = window.LeonidaWallet;
-      if (!W.state.address) {
-        W.toast("Connect a wallet first");
-        document.querySelector("[data-connect]")?.click();
-        return;
+      const res = await runPay(b, "Open drop", () => W.buyCrate(crate));
+      if (!res) return;
+      const stage = $("#crateStage");
+      const tx = res.paid.tx || "";
+      const href = res.paid.chain === "solana"
+        ? "https://solscan.io/tx/" + tx
+        : "https://polygonscan.com/tx/" + tx;
+      if (stage) {
+        stage.hidden = false;
+        stage.innerHTML = `<div class="reveal-drop">
+          <img src="${esc(res.item.img)}" alt="">
+          <h3>${esc(res.item.name)}</h3>
+          <p class="rarity r-${esc(res.item.rarity)}">${esc(res.item.rarity)}</p>
+          <p>Minted to your locker.</p>
+          <p class="mono"><a href="${esc(href)}" target="_blank" rel="noopener">View payment ${esc(tx.slice(0, 10))}…</a></p>
+          <a class="btn btn-pink" href="locker.html">Open locker</a>
+        </div>`;
+        stage.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-      W.openChooser(async (kind) => {
-        b.disabled = true;
-        b.textContent = "Confirm in wallet…";
-        const stage = $("#crateStage");
-        try {
-          const res = await W.buyCrate(crate, kind);
-          if (stage) {
-            stage.hidden = false;
-            stage.innerHTML = `<div class="reveal-drop">
-              <img src="${res.item.img}" alt="">
-              <h3>${res.item.name}</h3>
-              <p class="rarity ${"r-" + res.item.rarity}">${res.item.rarity}</p>
-              <p>Minted to your locker. On-chain receipt: ${res.paid.tx.slice(0, 10)}…</p>
-              <a class="btn btn-pink" href="locker.html">Open locker</a>
-            </div>`;
-          }
-        } catch (err) {
-          W.toast((err && err.message) || "Cancelled");
-          b.disabled = false;
-          b.textContent = "Open drop";
-        }
-      });
     });
   }
 
@@ -142,42 +139,54 @@
     const paint = () => {
       const owner = W.state.address;
       if (!owner) {
-        grid.innerHTML = "<p class='empty'>Connect MetaMask or Phantom to see drops minted to that wallet.</p>";
+        grid.innerHTML = "<p class='empty'>Connect a wallet to see items minted to that address.</p>";
         return;
       }
       const rows = W.loadLocker(owner);
       if (!rows.length) {
-        grid.innerHTML = "<p class='empty'>Locker empty. Buy a skin or open a drop — it mints here, bound to this wallet.</p>";
+        grid.innerHTML = "<p class='empty'>Locker empty. Buy in the shop or open a drop — payment mints here.</p>";
         return;
       }
-      grid.innerHTML = rows.map((t) => `<article class="card ${"r-" + t.rarity}">
-        <div class="card-media"><img src="${t.image}" alt="${t.name}"></div>
-        <div class="card-body">
-          <p class="rarity">${t.rarity}</p>
-          <h3>${t.name}</h3>
-          <p class="mono">NFT ${t.tokenId}</p>
-          <p class="mono">tx ${t.tx}</p>
-          <p>Chain: ${t.chain} · ${new Date(t.mintedAt).toLocaleString()}</p>
-        </div>
-      </article>`).join("");
+      grid.innerHTML = rows.map((t) => {
+        const href = t.chain === "solana"
+          ? "https://solscan.io/tx/" + t.tx
+          : "https://polygonscan.com/tx/" + t.tx;
+        return `<article class="card r-${esc(t.rarity)}">
+          <div class="card-media"><img src="${esc(t.image)}" alt="${esc(t.name)}"></div>
+          <div class="card-body">
+            <p class="rarity">${esc(t.rarity)}</p>
+            <h3>${esc(t.name)}</h3>
+            <p class="mono">NFT ${esc(t.tokenId)}</p>
+            <p class="mono"><a href="${esc(href)}" target="_blank" rel="noopener">${esc(t.chain)} · ${esc(String(t.tx).slice(0, 18))}…</a></p>
+            <p>${esc(new Date(t.mintedAt).toLocaleString())}</p>
+          </div>
+        </article>`;
+      }).join("");
     };
     paint();
     window.addEventListener("leonida:wallet", paint);
     const got = new URLSearchParams(location.search).get("got");
-    if (got) W.toast("New NFT in locker: " + got);
+    if (got) W.toast("New NFT in locker");
   }
 
   document.addEventListener("DOMContentLoaded", () => {
     const menu = $("#menuBtn");
     const links = $("#navLinks");
-    menu?.addEventListener("click", () => links.classList.toggle("open"));
+    menu?.addEventListener("click", () => {
+      const open = links.classList.toggle("open");
+      menu.setAttribute("aria-expanded", String(open));
+    });
+    $$("#navLinks a").forEach((a) => a.addEventListener("click", () => {
+      links?.classList.remove("open");
+      menu?.setAttribute("aria-expanded", "false");
+    }));
     tickCountdown();
     setInterval(tickCountdown, 1000);
     renderShop();
     renderDrops();
     renderLocker();
     $$(".reveal").forEach((el, i) => {
-      setTimeout(() => el.classList.add("in"), 80 * i);
+      setTimeout(() => el.classList.add("in"), 60 * i);
     });
   });
 })();

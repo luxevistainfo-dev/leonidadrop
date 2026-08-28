@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#07040c">
   <title>Shop — Leonida Drop</title>
   <meta name="description" content="Buy original Vice City-inspired collectibles with MetaMask or Phantom. Minted to your locker.">
   <link rel="icon" href="images/mark.jpg">
@@ -30,9 +31,9 @@
     <div class="wrap">
       <p class="kicker">The shop</p>
       <h2>Pick it. Pay it. It’s in the locker.</h2>
-      <p class="lede">Connect MetaMask (USDT or POL on Polygon) or Phantom (SOL). The transfer is the receipt. We mint a collectible NFT record to that wallet address — name, rarity, tx hash — so the item is theirs.</p>
+      <p class="lede">Log in with MetaMask, Coinbase, Trust, Rainbow, OKX, Phantom, or Solflare. Pay on Polygon or Solana. The transfer is the receipt — we mint to that address.</p>
       <div class="toolbar">
-        <input id="q" type="search" placeholder="Search the strip…">
+        <input id="q" type="search" placeholder="Search the strip…" enterkeyhint="search" autocomplete="off">
         <select id="cat">
           <option value="all">All</option>
           <option value="wear">Wear</option>
@@ -42,22 +43,14 @@
           <option value="high">$80 and up</option>
         </select>
         <span class="wallet-chip" id="walletChip" hidden></span>
+        <span class="wallet-chip" id="shopCount"></span>
       </div>
       <div class="cards" id="shopGrid"></div>
     </div>
   </section>
   <footer class="footer"><div class="wrap">Odds-free shop. Crates live on <a href="drops.html">Drops</a>.</div></footer>
   <div class="toast" id="toast"></div>
-  <div class="modal" id="payModal" hidden>
-    <div class="sheet">
-      <h3>Pay with</h3>
-      <p class="lede">Same item. Different chain. NFT still binds to the address you pay from.</p>
-      <button class="btn btn-pink" type="button" id="payEvm">MetaMask · Polygon USDT/POL</button>
-      <button class="btn btn-gold" type="button" id="paySol">Phantom · SOL</button>
-      <button class="btn btn-ghost" type="button" id="payCancel">Cancel</button>
-    </div>
-  </div>
-  <script src="https://unpkg.com/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
   <script src="js/config.js"></script>
   <script src="js/catalog.js"></script>
   <script src="js/wallet.js"></script>
